@@ -16,4 +16,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/update_apk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sample_text"
+        android:layout_marginTop="20dp"
+        android:text="更新版本"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
