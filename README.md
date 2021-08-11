@@ -5,7 +5,8 @@
 
 > 在目前的大部分热门应用中（QQ、微信、抖音等）都包含了一个名称类似 libbspatch.so的动态库，而且通过：
 >
-> ```nm -D xx.so```
+> ```nm -D xx.so```()
+>命令对应：\ndk\xx.xx.xx\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\arm-linux-androideabi-nm.exe
 >
 > 查看这些库中的符号内容都差不多，因此它们肯定是实现了同一件事情，也就是 ”增量更新“
 
@@ -14,24 +15,20 @@
 ## 好处
 
 ​	增量更新相较于全量更新的好处不言而喻，利用差分算法获得1.0版本到2.0版本的差分包，这样在安装了1.0的设备上只要下载这个差分包就能够完成由1.0-2.0的更新。比如：
-
 存在一个1.0版本的apk
-
-![apk1](图片\apk1.png)
+	
+![apk1](https://user-images.githubusercontent.com/36436771/129043841-37765a70-b879-4cc9-abeb-ef667bc327da.png)
 
 然后需要升级到2.0版本，而2.0版本的apk为
-
-![apk2](图片\apk2.png)
+	
+![apk2](https://user-images.githubusercontent.com/36436771/129043900-a37e4387-7230-44fd-b238-fd60ca2f5927.png)
 
 这样如果进行全量更新则需要下载完整的76.6M大小的apk文件，进行安装。而如果使用增量更新则只需要下载如下 50.7M的差分包。
+	
+![patch](https://user-images.githubusercontent.com/36436771/129044854-dfe087dc-b803-49db-9d77-1219bbaf48b5.png)
 
-![patch](图片\patch.png)
 
 下载数据减少了26M。这样做的好处不仅仅在于对于流量的节省。对于用户来说现在流量可能并不值钱，或者使用wifi再进行更新，但是从下载时间能够得到一个良好的优化，同时也减小了服务器的压力。
-
-
-
-
 
 ## 实现
 
@@ -47,15 +44,19 @@
 
 下载完成后解压：
 
-![patch](图片\bsdiff源码.png)
+```
+解压：
+tar zxvf  bsdiff-4.3.tar.gz
+```
+![bsdiff源码](https://user-images.githubusercontent.com/36436771/129045003-6db0ad33-460c-4be6-9f69-4c112fb40ca6.png)
 
 
 
-源码中  Makefile(不用多说了吧？)
+源码中  `Makefile`
 
-bsdiff: 		比较两个文件的二进制数据，生成差分包
+bsdiff: 比较两个文件的二进制数据，生成差分包
 
-bspatch：	合并旧的文件与差分包，生成新文件
+bspatch：合并旧的文件与差分包，生成新文件
 
 很显然，bspatch我们需要在Android环境下来执行，而bsdiff 一般会在你的存储服务器当中执行即电脑环境下执行(win或linux)
 
@@ -141,7 +142,7 @@ install:
 
 
 
-而bspatch则需要在Android工程中使用NDK来进行编译使用(见工程)
+而bspatch则需要在Android工程中使用NDK来进行编译使用
 
 
 
