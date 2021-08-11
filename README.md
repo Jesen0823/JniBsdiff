@@ -44,7 +44,7 @@
 
 下载完成后解压：
 
-```
+```shell
 解压：
 tar zxvf  bsdiff-4.3.tar.gz
 ```
@@ -68,7 +68,7 @@ bspatch：合并旧的文件与差分包，生成新文件
 
 在Linux中的解压目录直接执行：`make` 会产生错误。需要修改：
 
-```makefile
+```make
 install:
 	${INSTALL_PROGRAM} bsdiff bspatch ${PREFIX}/bin
 .ifndef WITHOUT_MAN
@@ -120,7 +120,7 @@ bsdiff.c:(.text.startup+0x1126): undefined reference to `BZ2_bzWriteClose'
 
 则修改Makefile为：
 
-```makefile
+```make
 CFLAGS          +=      -O3 -lbz2
 
 PREFIX          ?=      /usr/local
